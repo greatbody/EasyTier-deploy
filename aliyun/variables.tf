@@ -59,3 +59,20 @@ variable "internet_bandwidth" {
   type        = number
   default     = 5 # This can stay as default since it's not sensitive
 }
+
+variable "aliyun_access_key" {
+  description = "Alibaba Cloud Access Key ID (TF_VAR_aliyun_access_key)"
+  type        = string
+  sensitive   = true
+}
+
+variable "aliyun_secret_key" {
+  description = "Alibaba Cloud Secret Access Key (TF_VAR_aliyun_secret_key)"
+  type        = string
+  sensitive   = true
+}
+
+variable "aliyun_region" {
+  description = "Alibaba Cloud region (TF_VAR_aliyun_region)"
+  type        = string
+}

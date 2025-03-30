@@ -11,7 +11,11 @@ terraform {
 }
 
 # Configure the Alibaba Cloud Provider
-provider "alicloud" {} # Configuration via environment variables
+provider "alicloud" {
+  region     = var.aliyun_region
+  access_key = var.aliyun_access_key
+  secret_key = var.aliyun_secret_key
+} # Configuration via environment variables
 
 # VPC Configuration
 resource "alicloud_vpc" "vpc" {
