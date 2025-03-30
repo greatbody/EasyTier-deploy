@@ -7,7 +7,6 @@
 
 # Project Metadata
 # TF_VAR_project_name="ubuntu-server"
-# TF_VAR_environment="dev"
 
 # Network Configuration
 # TF_VAR_vpc_cidr="172.16.0.0/16"

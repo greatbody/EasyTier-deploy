@@ -14,28 +14,11 @@ provider "alicloud" {
   secret_key = var.aliyun_secret_key
 } # Configuration via environment variables
 
-# VPC Configuration
-resource "alicloud_vpc" "vpc" {
-  count      = var.enable_deployment ? 1 : 0
-  vpc_name   = "${var.project_name}-vpc"
-  cidr_block = var.vpc_cidr
-}
-
-# VSwitch (Subnet) Configuration
-resource "alicloud_vswitch" "vsw" {
-  count        = var.enable_deployment ? 1 : 0
-  vpc_id       = alicloud_vpc.vpc[0].id
-  cidr_block   = var.vswitch_cidr
-  zone_id      = var.zone_id
-  vswitch_name = "${var.project_name}-vsw"
-}
-
 # Security Group Configuration
 resource "alicloud_security_group" "sg" {
   count               = var.enable_deployment ? 1 : 0
   security_group_name = "${var.project_name}-sg"
   description         = "Security group for Ubuntu server"
-  vpc_id              = alicloud_vpc.vpc[0].id
 }
 
 # Security Group Rules
@@ -45,7 +28,7 @@ resource "alicloud_security_group_rule" "allow_ssh" {
   ip_protocol       = "tcp"
   port_range        = "22/22"
   security_group_id = alicloud_security_group.sg[0].id
-  cidr_ip           = var.allowed_ssh_cidr
+  cidr_ip           = "0.0.0.0/0"
 }
 
 # TCP Rules
@@ -130,7 +113,6 @@ resource "alicloud_instance" "ubuntu" {
   internet_max_bandwidth_out = var.internet_bandwidth
 
   tags = {
-    Environment = var.environment
     Project     = var.project_name
     ManagedBy   = "terraform"
   }

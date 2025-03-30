@@ -15,12 +15,7 @@
    - `ALICLOUD_REGION` - Your preferred region (e.g., "ap-southeast-1")
 
    Required Terraform Variables (prefix with TF_VAR_):
-   - `TF_VAR_zone_id` - Zone ID (e.g., "ap-southeast-1a")
    - `TF_VAR_project_name` - Project name for resource naming
-   - `TF_VAR_environment` - Environment name (dev/staging/prod)
-   - `TF_VAR_vpc_cidr` - VPC CIDR block
-   - `TF_VAR_vswitch_cidr` - VSwitch CIDR block
-   - `TF_VAR_allowed_ssh_cidr` - Your IP range for SSH access
    - `TF_VAR_instance_type` - Alibaba Cloud instance type
    - `TF_VAR_ubuntu_image_id` - Ubuntu 24.04 image ID
    - `TF_VAR_system_disk_size` - System disk size in GB

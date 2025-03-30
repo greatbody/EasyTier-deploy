@@ -1,30 +1,5 @@
-variable "zone_id" {
-  description = "The availability zone ID (TF_VAR_zone_id)"
-  type        = string
-}
-
 variable "project_name" {
   description = "Name of the project, used as prefix for resources (TF_VAR_project_name)"
-  type        = string
-}
-
-variable "environment" {
-  description = "Environment name e.g., dev, staging, prod (TF_VAR_environment)"
-  type        = string
-}
-
-variable "vpc_cidr" {
-  description = "CIDR block for VPC (TF_VAR_vpc_cidr)"
-  type        = string
-}
-
-variable "vswitch_cidr" {
-  description = "CIDR block for VSwitch (TF_VAR_vswitch_cidr)"
-  type        = string
-}
-
-variable "allowed_ssh_cidr" {
-  description = "CIDR block allowed to connect via SSH (TF_VAR_allowed_ssh_cidr)"
   type        = string
 }
 
