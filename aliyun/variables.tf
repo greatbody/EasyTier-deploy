@@ -1,8 +1,3 @@
-variable "region" {
-  description = "The Alibaba Cloud region to deploy into (TF_VAR_region)"
-  type        = string
-}
-
 variable "zone_id" {
   description = "The availability zone ID (TF_VAR_zone_id)"
   type        = string
@@ -75,4 +70,10 @@ variable "aliyun_secret_key" {
 variable "aliyun_region" {
   description = "Alibaba Cloud region (TF_VAR_aliyun_region)"
   type        = string
+}
+
+variable "enable_deployment" {
+  description = "Toggle to enable/disable the entire deployment"
+  type        = bool
+  default     = true
 }

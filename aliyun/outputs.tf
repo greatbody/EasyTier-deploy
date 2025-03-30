@@ -1,25 +1,25 @@
 output "instance_id" {
   description = "The ID of the ECS instance"
-  value       = alicloud_instance.ubuntu.id
+  value       = var.enable_deployment ? alicloud_instance.ubuntu[0].id : null
 }
 
 output "instance_public_ip" {
   description = "The public IP address of the ECS instance"
-  value       = alicloud_instance.ubuntu.public_ip
+  value       = var.enable_deployment ? alicloud_instance.ubuntu[0].public_ip : null
 }
 
 output "vpc_id" {
   description = "The ID of the VPC"
-  value       = alicloud_vpc.vpc.id
+  value       = var.enable_deployment ? alicloud_vpc.vpc[0].id : null
 }
 
 output "security_group_id" {
   description = "The ID of the security group"
-  value       = alicloud_security_group.sg.id
+  value       = var.enable_deployment ? alicloud_security_group.sg[0].id : null
 }
 
 output "ssh_command" {
   description = "Command to SSH into the instance"
-  value       = "ssh root@${alicloud_instance.ubuntu.public_ip}"
+  value       = var.enable_deployment ? "ssh root@${alicloud_instance.ubuntu[0].public_ip}" : null
   sensitive   = false
 }

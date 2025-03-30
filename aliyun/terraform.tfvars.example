@@ -3,7 +3,6 @@
 # Format: export TF_VAR_variable_name="value"
 
 # Region and Zone Configuration
-# TF_VAR_region="ap-southeast-1"
 # TF_VAR_zone_id="ap-southeast-1a"
 
 # Project Metadata
@@ -30,3 +29,6 @@
 # ALICLOUD_ACCESS_KEY="your_access_key"
 # ALICLOUD_SECRET_KEY="your_secret_key"
 # ALICLOUD_REGION="ap-southeast-1"
+
+# Deployment toggle
+enable_deployment = true  # Set to false to disable the entire deployment

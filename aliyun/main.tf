@@ -16,13 +16,15 @@ provider "alicloud" {
 
 # VPC Configuration
 resource "alicloud_vpc" "vpc" {
+  count      = var.enable_deployment ? 1 : 0
   vpc_name   = "${var.project_name}-vpc"
   cidr_block = var.vpc_cidr
 }
 
 # VSwitch (Subnet) Configuration
 resource "alicloud_vswitch" "vsw" {
-  vpc_id       = alicloud_vpc.vpc.id
+  count        = var.enable_deployment ? 1 : 0
+  vpc_id       = alicloud_vpc.vpc[0].id
   cidr_block   = var.vswitch_cidr
   zone_id      = var.zone_id
   vswitch_name = "${var.project_name}-vsw"
@@ -30,84 +32,94 @@ resource "alicloud_vswitch" "vsw" {
 
 # Security Group Configuration
 resource "alicloud_security_group" "sg" {
+  count               = var.enable_deployment ? 1 : 0
   security_group_name = "${var.project_name}-sg"
   description         = "Security group for Ubuntu server"
-  vpc_id              = alicloud_vpc.vpc.id
+  vpc_id              = alicloud_vpc.vpc[0].id
 }
 
 # Security Group Rules
 resource "alicloud_security_group_rule" "allow_ssh" {
+  count             = var.enable_deployment ? 1 : 0
   type              = "ingress"
   ip_protocol       = "tcp"
   port_range        = "22/22"
-  security_group_id = alicloud_security_group.sg.id
+  security_group_id = alicloud_security_group.sg[0].id
   cidr_ip           = var.allowed_ssh_cidr
 }
 
 # TCP Rules
 resource "alicloud_security_group_rule" "allow_tcp_80" {
+  count             = var.enable_deployment ? 1 : 0
   type              = "ingress"
   ip_protocol       = "tcp"
   port_range        = "80/80"
-  security_group_id = alicloud_security_group.sg.id
+  security_group_id = alicloud_security_group.sg[0].id
   cidr_ip           = "0.0.0.0/0"
 }
 
 resource "alicloud_security_group_rule" "allow_tcp_443" {
+  count             = var.enable_deployment ? 1 : 0
   type              = "ingress"
   ip_protocol       = "tcp"
   port_range        = "443/443"
-  security_group_id = alicloud_security_group.sg.id
+  security_group_id = alicloud_security_group.sg[0].id
   cidr_ip           = "0.0.0.0/0"
 }
 
 resource "alicloud_security_group_rule" "allow_tcp_11211" {
+  count             = var.enable_deployment ? 1 : 0
   type              = "ingress"
   ip_protocol       = "tcp"
   port_range        = "11211/11211"
-  security_group_id = alicloud_security_group.sg.id
+  security_group_id = alicloud_security_group.sg[0].id
   cidr_ip           = "0.0.0.0/0"
 }
 
 resource "alicloud_security_group_rule" "allow_tcp_11010" {
+  count             = var.enable_deployment ? 1 : 0
   type              = "ingress"
   ip_protocol       = "tcp"
   port_range        = "11010/11010"
-  security_group_id = alicloud_security_group.sg.id
+  security_group_id = alicloud_security_group.sg[0].id
   cidr_ip           = "0.0.0.0/0"
 }
 
 # UDP Rules
 resource "alicloud_security_group_rule" "allow_udp_22020" {
+  count             = var.enable_deployment ? 1 : 0
   type              = "ingress"
   ip_protocol       = "udp"
   port_range        = "22020/22020"
-  security_group_id = alicloud_security_group.sg.id
+  security_group_id = alicloud_security_group.sg[0].id
   cidr_ip           = "0.0.0.0/0"
 }
 
 resource "alicloud_security_group_rule" "allow_udp_11010" {
+  count             = var.enable_deployment ? 1 : 0
   type              = "ingress"
   ip_protocol       = "udp"
   port_range        = "11010/11010"
-  security_group_id = alicloud_security_group.sg.id
+  security_group_id = alicloud_security_group.sg[0].id
   cidr_ip           = "0.0.0.0/0"
 }
 
 resource "alicloud_security_group_rule" "allow_udp_11011" {
+  count             = var.enable_deployment ? 1 : 0
   type              = "ingress"
   ip_protocol       = "udp"
   port_range        = "11011/11011"
-  security_group_id = alicloud_security_group.sg.id
+  security_group_id = alicloud_security_group.sg[0].id
   cidr_ip           = "0.0.0.0/0"
 }
 
 # ECS Instance Configuration
 resource "alicloud_instance" "ubuntu" {
+  count                = var.enable_deployment ? 1 : 0
   instance_name        = "${var.project_name}-ubuntu"
   instance_type        = var.instance_type
-  security_groups      = [alicloud_security_group.sg.id]
-  vswitch_id           = alicloud_vswitch.vsw.id
+  security_groups      = [alicloud_security_group.sg[0].id]
+  vswitch_id           = alicloud_vswitch.vsw[0].id
   image_id             = var.ubuntu_image_id
   system_disk_category = "cloud_efficiency"
   system_disk_size     = var.system_disk_size

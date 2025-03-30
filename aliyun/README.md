@@ -1,14 +1,5 @@
 # Alibaba Cloud Ubuntu Server Terraform Configuration
 
-This Terraform configuration deploys an Ubuntu 24.04 server instance on Alibaba Cloud with proper networking and security configurations. All configuration is handled via environment variables in Terraform Cloud for secure open source usage.
-
-## Prerequisites
-
-1. [Terraform](https://www.terraform.io/downloads.html) installed (v1.0.0+)
-2. [Terraform Cloud](https://app.terraform.io) account and organization
-3. Alibaba Cloud account with access credentials
-4. Alibaba Cloud CLI (optional, helpful for finding image IDs)
-
 ## Terraform Cloud Setup
 
 1. Create a workspace in Terraform Cloud:
@@ -24,7 +15,6 @@ This Terraform configuration deploys an Ubuntu 24.04 server instance on Alibaba 
    - `ALICLOUD_REGION` - Your preferred region (e.g., "ap-southeast-1")
 
    Required Terraform Variables (prefix with TF_VAR_):
-   - `TF_VAR_region` - Region name (e.g., "ap-southeast-1")
    - `TF_VAR_zone_id` - Zone ID (e.g., "ap-southeast-1a")
    - `TF_VAR_project_name` - Project name for resource naming
    - `TF_VAR_environment` - Environment name (dev/staging/prod)
