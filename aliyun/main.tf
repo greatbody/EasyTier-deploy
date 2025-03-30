@@ -129,6 +129,14 @@ resource "alicloud_instance" "ubuntu" {
   system_disk_category = "cloud_efficiency"
   system_disk_size     = var.system_disk_size
   vswitch_id           = alicloud_vswitch.vsw[0].id
+  user_data = <<-EOF
+    #!/bin/bash
+    apt-get update
+    apt-get install -y nginx
+    systemctl start nginx
+    systemctl enable nginx
+    curl -o /var/www/html/index.html https://easytier.cn/web
+  EOF
 
   password  = var.instance_password
   host_name = "${var.project_name}-ubuntu"
