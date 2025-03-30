@@ -18,3 +18,13 @@ output "ssh_command" {
   value       = var.enable_deployment ? "ssh root@${alicloud_instance.ubuntu[0].public_ip}" : null
   sensitive   = false
 }
+
+output "vswitch_id" {
+  description = "The ID of the VSwitch"
+  value       = var.enable_deployment ? alicloud_vswitch.vsw[0].id : null
+}
+
+output "vpc_id" {
+  description = "The ID of the VPC"
+  value       = var.enable_deployment ? alicloud_vpc.vpc[0].id : null
+}

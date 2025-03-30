@@ -55,3 +55,20 @@ variable "enable_deployment" {
   type        = bool
   default     = true
 }
+
+variable "vpc_cidr" {
+  description = "CIDR block for VPC"
+  type        = string
+  default     = "172.16.0.0/16"
+}
+
+variable "vswitch_cidr" {
+  description = "CIDR block for VSwitch"
+  type        = string
+  default     = "172.16.1.0/24"
+}
+
+variable "zone_id" {
+  description = "Availability Zone ID"
+  type        = string
+}

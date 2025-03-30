@@ -9,9 +9,9 @@
 # TF_VAR_project_name="ubuntu-server"
 
 # Network Configuration
-# TF_VAR_vpc_cidr="172.16.0.0/16"
-# TF_VAR_vswitch_cidr="172.16.1.0/24"
-# TF_VAR_allowed_ssh_cidr="YOUR_IP_RANGE/32"  # Replace with your IP range
+vpc_cidr     = "172.16.0.0/16"
+vswitch_cidr = "172.16.1.0/24"
+zone_id      = "cn-hangzhou-i"  # Replace with your desired availability zone
 
 # Instance Configuration
 # TF_VAR_instance_type="ecs.t6-c1m1.large"

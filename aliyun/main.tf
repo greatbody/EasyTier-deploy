@@ -96,6 +96,22 @@ resource "alicloud_security_group_rule" "allow_udp_11011" {
   cidr_ip           = "0.0.0.0/0"
 }
 
+# Create VPC
+resource "alicloud_vpc" "vpc" {
+  count      = var.enable_deployment ? 1 : 0
+  vpc_name   = "${var.project_name}-vpc"
+  cidr_block = var.vpc_cidr
+}
+
+# Create VSwitch
+resource "alicloud_vswitch" "vsw" {
+  count        = var.enable_deployment ? 1 : 0
+  vswitch_name = "${var.project_name}-vswitch"
+  vpc_id       = alicloud_vpc.vpc[0].id
+  cidr_block   = var.vswitch_cidr
+  zone_id      = var.zone_id
+}
+
 # ECS Instance Configuration
 resource "alicloud_instance" "ubuntu" {
   count                = var.enable_deployment ? 1 : 0
@@ -105,6 +121,7 @@ resource "alicloud_instance" "ubuntu" {
   image_id             = var.ubuntu_image_id
   system_disk_category = "cloud_efficiency"
   system_disk_size     = var.system_disk_size
+  vswitch_id           = alicloud_vswitch.vsw[0].id
 
   password  = var.instance_password
   host_name = "${var.project_name}-ubuntu"
