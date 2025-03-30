@@ -1,5 +1,12 @@
 # Alibaba Cloud Ubuntu Server Terraform Configuration
 
+## Preconditions
+
+Before proceeding, ensure the following:
+1. You have a Terraform Cloud account created.
+2. You have Alibaba Cloud secrets (Access Key and Secret Key) created.
+3. Have enough cash in account.
+
 ## Terraform Cloud Setup
 
 1. Create a workspace in Terraform Cloud:
