@@ -25,6 +25,7 @@ resource "alicloud_security_group" "sg" {
   count               = var.enable_deployment ? 1 : 0
   security_group_name = "${var.project_name}-sg"
   description         = "Security group for Ubuntu server"
+  vpc_id              = alicloud_vpc.vpc[0].id
 }
 
 # Security Group Rules
