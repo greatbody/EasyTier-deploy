@@ -4,7 +4,7 @@
 
 1. Create a workspace in Terraform Cloud:
    - Create an organization if you haven't already
-   - Create a new workspace named "aliyun-ubuntu-server"
+   - Create a new workspace name at your choice, say "easytier"
    - Select "API-driven workflow" when creating the workspace
 
 2. Configure workspace variables in Terraform Cloud:
@@ -13,16 +13,20 @@
    - `ALICLOUD_ACCESS_KEY` - Your Alibaba Cloud access key
    - `ALICLOUD_SECRET_KEY` - Your Alibaba Cloud secret key
    - `ALICLOUD_REGION` - Your preferred region (e.g., "ap-southeast-1")
+   - `TF_VAR_aliyun_access_key` - Same as ALICLOUD_ACCESS_KEY
+   - `TF_VAR_aliyun_secret_key` - Same as ALICLOUD_SECRET_KEY
+   - `TF_VAR_aliyun_region` - Same as ALICLOUD_REGION
 
-   Required Terraform Variables (prefix with TF_VAR_):
+   Required Terraform Variables:
    - `TF_VAR_project_name` - Project name for resource naming
-   - `TF_VAR_instance_type` - Alibaba Cloud instance type
-   - `TF_VAR_ubuntu_image_id` - Ubuntu 24.04 image ID
-   - `TF_VAR_system_disk_size` - System disk size in GB
+   - `TF_VAR_instance_type` - Alibaba Cloud instance type (defaults to "ecs.t5-lc2m1.nano")
+   - `TF_VAR_ubuntu_image_id` - Ubuntu 24.04 image ID (defaults to "ubuntu_24_04_x64_20G_alibase_20250217.vhd")
+   - `TF_VAR_system_disk_size` - System disk size in GB (defaults to 20)
    - `TF_VAR_instance_password` - Instance root password (mark as sensitive)
 
    Optional Variables:
    - `TF_VAR_internet_bandwidth` - Internet bandwidth in Mbps (defaults to 5)
+   - `TF_VAR_enable_deployment` - Toggle to enable/disable the entire deployment (defaults to true)
 
 ## Usage
 
@@ -49,9 +53,11 @@
 ## Security Considerations
 
 1. Network Security:
-   - Set `TF_VAR_allowed_ssh_cidr` to your specific IP range
-   - Consider using a bastion host for secure access
-   - The default security group only allows SSH access
+   - The security group allows the following inbound traffic:
+     - TCP ports: 22 (SSH), 80 (HTTP), 443 (HTTPS), 11211, 11010
+     - UDP ports: 22020, 11010, 11011
+   - Consider restricting these ports to specific IP ranges for better security
+   - The default security group allows access from any IP (0.0.0.0/0)
 
 2. Instance Security:
    - Update the Ubuntu instance immediately after creation
