@@ -67,8 +67,3 @@ variable "vswitch_cidr" {
   type        = string
   default     = "172.16.1.0/24"
 }
-
-variable "zone_id" {
-  description = "Availability Zone ID"
-  type        = string
-}

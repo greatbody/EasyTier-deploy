@@ -14,6 +14,12 @@ provider "alicloud" {
   secret_key = var.aliyun_secret_key
 } # Configuration via environment variables
 
+data "alicloud_zones" "default" {
+  available_disk_category     = "cloud_efficiency"
+  available_resource_creation = "VSwitch"
+  available_instance_type     = var.instance_type
+}
+
 # Security Group Configuration
 resource "alicloud_security_group" "sg" {
   count               = var.enable_deployment ? 1 : 0
@@ -109,7 +115,7 @@ resource "alicloud_vswitch" "vsw" {
   vswitch_name = "${var.project_name}-vswitch"
   vpc_id       = alicloud_vpc.vpc[0].id
   cidr_block   = var.vswitch_cidr
-  zone_id      = var.zone_id
+  zone_id      = data.alicloud_zones.default.zones[0].id
 }
 
 # ECS Instance Configuration
