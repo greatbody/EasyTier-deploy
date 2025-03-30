@@ -8,11 +8,6 @@ output "instance_public_ip" {
   value       = var.enable_deployment ? alicloud_instance.ubuntu[0].public_ip : null
 }
 
-output "vpc_id" {
-  description = "The ID of the VPC"
-  value       = var.enable_deployment ? alicloud_vpc.vpc[0].id : null
-}
-
 output "security_group_id" {
   description = "The ID of the security group"
   value       = var.enable_deployment ? alicloud_security_group.sg[0].id : null
