@@ -113,7 +113,7 @@ resource "alicloud_instance" "ubuntu" {
   internet_max_bandwidth_out = var.internet_bandwidth
 
   tags = {
-    Project     = var.project_name
-    ManagedBy   = "terraform"
+    Project   = var.project_name
+    ManagedBy = "terraform"
   }
 }

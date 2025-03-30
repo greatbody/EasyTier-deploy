@@ -6,16 +6,19 @@ variable "project_name" {
 variable "instance_type" {
   description = "Alibaba Cloud instance type (TF_VAR_instance_type)"
   type        = string
+  default     = "ecs.t5-lc2m1.nano" # Default instance type
 }
 
 variable "ubuntu_image_id" {
   description = "Ubuntu 24.04 image ID (TF_VAR_ubuntu_image_id)"
   type        = string
+  default     = "ubuntu_24_04_x64_20G_alibase_20250217.vhd"
 }
 
 variable "system_disk_size" {
   description = "Size of the system disk in GB (TF_VAR_system_disk_size)"
   type        = number
+  default     = 20 # Default system disk size
 }
 
 variable "instance_password" {
