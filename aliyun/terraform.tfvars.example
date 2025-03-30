@@ -1,0 +1,32 @@
+# This file shows example values for reference.
+# In production, set these as environment variables in Terraform Cloud:
+# Format: export TF_VAR_variable_name="value"
+
+# Region and Zone Configuration
+# TF_VAR_region="ap-southeast-1"
+# TF_VAR_zone_id="ap-southeast-1a"
+
+# Project Metadata
+# TF_VAR_project_name="ubuntu-server"
+# TF_VAR_environment="dev"
+
+# Network Configuration
+# TF_VAR_vpc_cidr="172.16.0.0/16"
+# TF_VAR_vswitch_cidr="172.16.1.0/24"
+# TF_VAR_allowed_ssh_cidr="YOUR_IP_RANGE/32"  # Replace with your IP range
+
+# Instance Configuration
+# TF_VAR_instance_type="ecs.t6-c1m1.large"
+# TF_VAR_system_disk_size=40
+# TF_VAR_ubuntu_image_id="ubuntu_24_04_x64_20G_alibase_????????"  # Replace with actual image ID
+
+# Security Configuration (DO NOT commit actual values)
+# TF_VAR_instance_password="CHANGE_ME_TO_A_SECURE_PASSWORD"
+
+# Optional Configuration
+# TF_VAR_internet_bandwidth=5  # Default is 5 Mbps
+
+# Alibaba Cloud Authentication (Set these in Terraform Cloud)
+# ALICLOUD_ACCESS_KEY="your_access_key"
+# ALICLOUD_SECRET_KEY="your_secret_key"
+# ALICLOUD_REGION="ap-southeast-1"
