@@ -22,3 +22,6 @@ terraform.rc
 
 # Keep terraform.tfvars.example
 !terraform.tfvars.example
+
+# Ignore custom backend
+backend.tf

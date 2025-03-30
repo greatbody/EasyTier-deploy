@@ -1,7 +1,4 @@
 terraform {
-  # Terraform Cloud backend configuration
-  backend "remote" {} # Configuration will be provided via CLI or environment variables
-
   required_providers {
     alicloud = {
       source  = "aliyun/alicloud"
