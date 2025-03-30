@@ -102,7 +102,6 @@ resource "alicloud_instance" "ubuntu" {
   instance_name        = "${var.project_name}-ubuntu"
   instance_type        = var.instance_type
   security_groups      = [alicloud_security_group.sg[0].id]
-  vswitch_id           = alicloud_vswitch.vsw[0].id
   image_id             = var.ubuntu_image_id
   system_disk_category = "cloud_efficiency"
   system_disk_size     = var.system_disk_size
