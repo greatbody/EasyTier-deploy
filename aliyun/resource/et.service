@@ -1,0 +1,15 @@
+[Unit]
+Description=et
+After=network.target syslog.target
+Wants=network.target
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=15
+ExecStart=/etc/et/easytier-core -w udp://127.0.0.1:22020/admin
+User=root
+Group=root
+
+[Install]
+WantedBy=multi-user.target

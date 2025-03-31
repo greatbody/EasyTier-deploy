@@ -131,24 +131,68 @@ resource "alicloud_instance" "ubuntu" {
   vswitch_id           = alicloud_vswitch.vsw[0].id
   user_data = <<-EOF
     #!/bin/bash
+
+    # Define a log file
+    LOGFILE="/etc/user_data.log"
+
+    # Redirect all output to the log file
+    exec > "$LOGFILE" 2>&1
+
+    # Wait for network to be ready
+    echo "Waiting for network to be ready"
+    sleep 10
+    echo "Installing nginx, unzip, curl"
     apt update
     apt install -y nginx unzip curl
+    echo "Downloading index.html"
     curl -o /var/www/html/index.html https://easytier.cn/web
+    echo "Enabling and starting nginx"
     systemctl enable nginx
     systemctl start nginx
+    echo "Nginx enabled and started"
 
     # Download and extract EasyTier
+    echo "Downloading EasyTier"
+
     mkdir -p /etc/et
     curl -L -o /etc/et/easytier.zip https://github.com/EasyTier/EasyTier/releases/download/v2.2.4/easytier-linux-x86_64-v2.2.4.zip
+
+    echo "Unzipping EasyTier"
+
     unzip -o /etc/et/easytier.zip -d /etc/et/
+    ls -l /etc/et/
+
+    echo "Moving EasyTier files"
     mv /etc/et/easytier-linux-x86_64/* /etc/et/
+    ls -l /etc/et/
+
+    echo "Removing easytier-linux-x86_64"
+
     rm -rf /etc/et/easytier-linux-x86_64
+
+    echo "Removed easytier-linux-x86_64"
+
     rm /etc/et/easytier.zip
+    ls -l /etc/et/
+
+    echo "Downloading et_web.service"
     curl -o /etc/systemd/system/et_web.service https://raw.githubusercontent.com/greatbody/EasyTier-deploy/refs/heads/main/aliyun/resource/et_web.service
+    echo "Downloading et.service"
+    curl -o /etc/systemd/system/et.service https://raw.githubusercontent.com/greatbody/EasyTier-deploy/refs/heads/main/aliyun/resource/et.service
+
+    echo "Setting permissions"
     chmod 700 /etc/et/*
+
+    echo "Reloading systemd"
     systemctl daemon-reload
+
     systemctl enable et_web
     systemctl start et_web
+
+    systemctl enable et
+    systemctl start et
+
+    echo "EasyTier enabled and started"
 
   EOF
 
