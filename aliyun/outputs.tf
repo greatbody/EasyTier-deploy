@@ -28,3 +28,8 @@ output "vpc_id" {
   description = "The ID of the VPC"
   value       = var.enable_deployment ? alicloud_vpc.vpc[0].id : null
 }
+
+output "link_to_portal" {
+  description = "Link to the portal"
+  value       = var.enable_deployment ? "http://${alicloud_instance.ubuntu[0].public_ip}" : null
+}
