@@ -155,7 +155,7 @@ resource "alicloud_instance" "ubuntu" {
     echo "Downloading EasyTier"
 
     mkdir -p /etc/et
-    curl -L -o /etc/et/easytier.zip https://github.com/EasyTier/EasyTier/releases/download/v2.2.4/easytier-linux-x86_64-v2.2.4.zip
+    curl -L -o /etc/et/easytier.zip https://ghfast.top/https://github.com/EasyTier/EasyTier/releases/download/v2.2.4/easytier-linux-x86_64-v2.2.4.zip
 
     echo "Unzipping EasyTier"
 
