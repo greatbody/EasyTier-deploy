@@ -141,6 +141,9 @@ resource "alicloud_instance" "ubuntu" {
     mkdir -p /etc/et
     curl -L -o /etc/et/easytier.zip https://github.com/EasyTier/EasyTier/releases/download/v2.2.4/easytier-linux-x86_64-v2.2.4.zip
     unzip -o /etc/et/easytier.zip -d /etc/et/
+    mv /etc/et/easytier-linux-x86_64/* /etc/et/
+    rm -rf /etc/et/easytier-linux-x86_64
+    rm /etc/et/easytier.zip
     curl -o /etc/systemd/system/et_web.service https://raw.githubusercontent.com/greatbody/EasyTier-deploy/refs/heads/main/aliyun/resource/et_web.service
     chmod 700 /etc/et/*
     systemctl daemon-reload
