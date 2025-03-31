@@ -1,0 +1,15 @@
+[Unit]
+Description=EasyTier Web Service
+After=network.target syslog.target
+Wants=network.target
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=10
+ExecStart=/etc/et/easytier-web -d /etc/et/et.db
+User=root
+Group=root
+
+[Install]
+WantedBy=multi-user.target
