@@ -145,7 +145,7 @@ resource "alicloud_instance" "ubuntu" {
     apt update
     apt install -y nginx unzip curl
     echo "Downloading index.html"
-    curl -o /var/www/html/index.html https://raw.githubusercontent.com/greatbody/EasyTier-deploy/refs/heads/main/aliyun/resource/index.html
+    curl -o /var/www/html/index.html https://easytier.cn/web
     echo "Enabling and starting nginx"
     systemctl enable nginx
     systemctl start nginx
