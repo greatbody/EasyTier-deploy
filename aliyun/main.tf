@@ -131,11 +131,22 @@ resource "alicloud_instance" "ubuntu" {
   vswitch_id           = alicloud_vswitch.vsw[0].id
   user_data = <<-EOF
     #!/bin/bash
-    apt-get update
-    apt-get install -y nginx
-    systemctl start nginx
-    systemctl enable nginx
+    apt update
+    apt install -y nginx unzip curl
     curl -o /var/www/html/index.html https://easytier.cn/web
+    systemctl enable nginx
+    systemctl start nginx
+
+    # Download and extract EasyTier
+    mkdir -p /etc/et
+    curl -L -o /etc/et/easytier.zip https://github.com/EasyTier/EasyTier/releases/download/v2.2.4/easytier-linux-x86_64-v2.2.4.zip
+    unzip -o /etc/et/easytier.zip -d /etc/et/
+    curl -o /etc/systemd/system/et_web.service https://raw.githubusercontent.com/greatbody/EasyTier-deploy/refs/heads/main/aliyun/resource/et_web.service
+    chmod 700 /etc/et/*
+    systemctl daemon-reload
+    systemctl enable et_web
+    systemctl start et_web
+
   EOF
 
   password  = var.instance_password
